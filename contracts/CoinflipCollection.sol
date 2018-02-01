@@ -2,7 +2,7 @@ pragma solidity ^0.4.2;
 
 
 contract CoinflipCollection {
-	mapping (address => Coinflip) coinflips;
+	//mapping (address => Coinflip) coinflips;
 	address[] public coinflipAddresses;
 
 	function CoinflipCollection() public {

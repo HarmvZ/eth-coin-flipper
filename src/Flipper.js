@@ -59,7 +59,7 @@ class Flipper extends Component {
     this.state.web3.eth.getAccounts((error, accounts) => {
       //coinflip.at("0xb5e12f571780fa757b17c6a879481623f5d2d28fd35c05f957ed378e89a538c8").then((instance) => {
         // 0x0d8cc4b8d15d4c3ef1d70af0071376fb26b5669b
-      coinflip.deployed().then((instance) => {
+      coinflip.at(this.props.address).then((instance) => {
         wagerInstance = instance;
         this.setState({
           wagerInstance,
@@ -157,10 +157,13 @@ class Flipper extends Component {
       case 0: 
         statusTxt = 'No wager';
         wageBtn = (
-          <div>
-            <input type="number" min="1" max="100" value={this.state.wager} onChange={this.handleInputChange} />
-            <WageBtn onClickAction={this.makeWager} label="Make wager!" />
-          </div>
+          <form className="pure-form pure-form-stacked">
+            <fieldset>
+              <label for="wager">Wager (Eth)</label>
+              <input id="wager" type="number" min="1" max="100" value={this.state.wager} onChange={this.handleInputChange} />
+              <WageBtn onClickAction={this.makeWager} label="Make wager!" />
+            </fieldset>
+          </form>
         );
         break;
       case 1:
@@ -182,20 +185,46 @@ class Flipper extends Component {
     }
 
     return (
-          <div className="pure-g">
+          <div className="pure-g coinflipper">
             <div className="pure-u-1-1">
-              <h1>Ethereum Coinflipper</h1>
-              <p>Status: {statusTxt}</p>
-              <p>Player 1: {addr1}</p>
-              <p>Player 2: {addr2}</p>
-            </div>
-              {wageBtn}
-            <div className="pure-u-1-1">
-              <h2>Contract variables</h2>
-              <p>The wager state is: {this.state.wagerState}</p>
-              <p>The wager is: {this.state.wager}</p>
-              <p>Player 1 is: {this.state.player1}</p>
-              <p>Player 2 is: {this.state.player2}</p>
+              <h2>Coinflipper instance</h2>
+              <p className="subtitle">Address: {this.props.address}</p>
+              <p><span className="bold">Status:</span> {statusTxt}</p>
+              <p><span className="bold">Player 1:</span> {addr1}</p>
+              <p><span className="bold">Player 2:</span> {addr2}</p>
+              <p><span className="bold">Wager:</span> {this.state.wager} Ether</p>
+              <div className="smalltext">
+                <h3>Contract state variables</h3>
+                <table className="pure-table">
+                  <thead>
+                    <tr>
+                      <th>Variable</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>wagerState</td>
+                      <td>{this.state.wagerState}</td>
+                    </tr>
+                    <tr>
+                      <td>wager</td>
+                      <td>{this.state.wager}</td>
+                    </tr>
+                    <tr>
+                      <td>player1</td>
+                      <td>{this.state.player1}</td>
+                    </tr>
+                    <tr>
+                      <td>player2</td>
+                      <td>{this.state.player2}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+                  {wageBtn}
+
             </div>
           </div>
     );
@@ -211,9 +240,7 @@ class WageBtn extends Component {
 
   render() {
     return (
-      <div>
-        <button className="btn btn-primary" onClick={this.props.onClickAction}>{this.props.label}</button>
-      </div>
+        <button className="pure-button pure-button-primary" onClick={this.props.onClickAction}>{this.props.label}</button>
     );
   }
 }
