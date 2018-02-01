@@ -21,16 +21,16 @@ contract Coinflip {
 		currentState = WagerState.noWager;
 	}
 
-	function getCurrentState() public constant returns(WagerState) {
+	function getCurrentState() public view returns(WagerState) {
 		return currentState;
 	}
-	function getWager() public constant returns(uint) {
+	function getWager() public view returns(uint) {
 		return wager;
 	}
-	function getPlayer1() public constant returns(address) {
+	function getPlayer1() public view returns(address) {
 		return player1;
 	}
-	function getPlayer2() public constant returns(address) {
+	function getPlayer2() public view returns(address) {
 		return player2;
 	}
 

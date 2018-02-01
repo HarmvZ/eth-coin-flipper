@@ -48,23 +48,12 @@ class Flipper extends Component {
   }
 
   instantiateContract() {
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
-
     const contract = require('truffle-contract')
     const coinflip = contract(CoinflipContract)
     coinflip.setProvider(this.state.web3.currentProvider)
 
-    // Declaring this for later so we can set it in e.
+    // Declaring this for later
     let wagerInstance
-    let wagerState;
-    let wager;
-    let player1;
-    let player2;
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
