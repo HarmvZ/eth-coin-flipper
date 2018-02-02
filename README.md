@@ -34,8 +34,13 @@ $ npm run start
 ```
 7. Now you can use your browser and MetaMask to start flipping coins on http://localhost:3000
 ## Demo
-TODO
-## Why??
+Currently I have no stable VM available to run this app on.
+## Improvements
+* Fix Material Design Lite number input
+* Streamline contract interaction by combining transactions: CoinflipCollection.addNew() + Coinflip.makeWager() and Coinflip.acceptWager() + Coinflip.resolveBet()
+* Add players
+* Improve randomness
+## Why?!
 I created this app to learn more about developing on the EVM.
 ## Credits
 This project is created with the [official Truffle React box](http://truffleframework.com/boxes/react). The coin flip smart contract is based on [this example](https://gist.github.com/AlwaysBCoding/fa141a313f404b585016ff2a1e62adaf) by Decipher Media.
