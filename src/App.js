@@ -13,6 +13,7 @@ class App extends Component {
       accounts: null,
       collection: null,
       count: null,
+      timerId: null,
     }
 
     this.addCoinflip = this.addCoinflip.bind(this);
@@ -29,14 +30,26 @@ class App extends Component {
       })
 
       // Instantiate contract once web3 provided.
-      this.instantiateContract()
+      this.instantiateContract(() => {
+        const timerId = setInterval(() => {
+          this.fetchContractVars();
+        }, 5000);
+        this.setState({
+          timerId,
+        });
+      });
     })
     .catch(() => {
       console.log('Error finding web3.')
     })    
   }
 
-  instantiateContract() {
+
+  componentWillUnmount() {
+    clearInterval(this.state.timerId);
+  }  
+
+  instantiateContract(callback) {
     const contract = require('truffle-contract')
     const coinflipCollection = contract(CoinflipCollectionContract)
     coinflipCollection.setProvider(this.state.web3.currentProvider)
@@ -56,13 +69,13 @@ class App extends Component {
           collectionInstance,
           accounts
         }, () => {
-          this.fetchContractVars();
+          this.fetchContractVars(callback);
         })
       });
     })
   }
 
-  fetchContractVars(){
+  fetchContractVars(callback){
     // Fetch all state variables
     this.state.collectionInstance.getCoinflips().then((collection) => {
       this.state.collectionInstance.countCoinflips().then((count) => {
@@ -70,26 +83,21 @@ class App extends Component {
         this.setState({ 
           collection,
           count: count.c[0]
+        }, () => {
+          if (callback) {
+            callback();
+          }
         });
       });
     });
   }
 
   addCoinflip() {
-    const contract = require('truffle-contract')
-    const coinflip = contract(CoinflipContract)
-    coinflip.setProvider(this.state.web3.currentProvider)
-
-    coinflip.new({
-      from: this.state.accounts[0],
-      gas: 5000000
-    }).then(instance => {
-      this.state.collectionInstance.add(instance.address, {from: this.state.accounts[0]}).then(result =>{
-        if(result) {
-          console.log('New coin instance created and added to collection.');
-          this.render();
-        }
-      })
+    this.state.collectionInstance.addNew({from: this.state.accounts[0]}).then(address => {
+      if(address) {
+        console.log('New coin instance created and added to collection.');
+        this.render();
+      }
     }).catch(err => {
       console.error(err);
     })

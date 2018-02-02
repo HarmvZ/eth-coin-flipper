@@ -71,3 +71,29 @@ contract Coinflip {
         return true;
 	}
 }
+
+contract CoinflipCollection {
+	//mapping (address => Coinflip) coinflips;
+	address[] public coinflipAddresses;
+
+	function CoinflipCollection() public {
+	}
+
+	function getCoinflips() public view returns(address[]) {
+		return coinflipAddresses;
+	}
+
+	function countCoinflips() public view returns(uint) {
+		return coinflipAddresses.length;
+	}
+
+	function add(address _address) public returns (bool) {
+		coinflipAddresses.push(_address);
+		return true;
+	}
+	function addNew() public returns (address a) {
+		address cf = new Coinflip();
+		coinflipAddresses.push(cf);
+		return cf;
+	}
+}

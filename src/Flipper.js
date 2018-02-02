@@ -16,7 +16,8 @@ class Flipper extends Component {
       wagerInstance: null,
       accounts: null,
       web3: null,
-      showDetails: false
+      showDetails: false,
+      timerId: null,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);    
@@ -37,14 +38,25 @@ class Flipper extends Component {
       })
 
       // Instantiate contract once web3 provided.
-      this.instantiateContract()
+      this.instantiateContract(() => {
+        const timerId = setInterval(() => {
+          this.fetchContractVars();
+        }, 5000);
+        this.setState({
+          timerId,
+        });
+      });
     })
     .catch(() => {
       console.log('Error finding web3.')
-    })
+    });
   }
 
-  instantiateContract() {
+  componentWillUnmount() {
+    clearInterval(this.state.timerId);
+  }
+
+  instantiateContract(callback) {
     const contract = require('truffle-contract')
     const coinflip = contract(CoinflipContract)
     coinflip.setProvider(this.state.web3.currentProvider)
@@ -60,13 +72,13 @@ class Flipper extends Component {
           wagerInstance,
           accounts
         }, () => {
-          this.fetchContractVars();
+          this.fetchContractVars(callback);
         })
       });
     })
   }
 
-  fetchContractVars(){
+  fetchContractVars(callback){
     // Fetch all state variables
     this.state.wagerInstance.getCurrentState().then((wagerState) => {
       this.state.wagerInstance.getWager().then((wager) => {
@@ -80,6 +92,10 @@ class Flipper extends Component {
                 player1,
                 player2,
                 winner
+              }, () => {
+                if (callback) {
+                  callback();
+                }
               });
             });
           });

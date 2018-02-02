@@ -1,5 +1,5 @@
-var CoinflipCollection = artifacts.require("./CoinflipCollection.sol");
+var Coinflip = artifacts.require("./Coinflip.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(CoinflipCollection);
+  deployer.deploy(Coinflip);
 };
