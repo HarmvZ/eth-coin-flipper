@@ -12,6 +12,7 @@ class Flipper extends Component {
       wager: "",
       player1: null,
       player2: null,
+      winner: null,
       wagerInstance: null,
       accounts: null,
       web3: null,
@@ -53,8 +54,6 @@ class Flipper extends Component {
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      //coinflip.at("0xb5e12f571780fa757b17c6a879481623f5d2d28fd35c05f957ed378e89a538c8").then((instance) => {
-        // 0x0d8cc4b8d15d4c3ef1d70af0071376fb26b5669b
       coinflip.at(this.props.address).then((instance) => {
         wagerInstance = instance;
         this.setState({
@@ -73,12 +72,15 @@ class Flipper extends Component {
       this.state.wagerInstance.getWager().then((wager) => {
         this.state.wagerInstance.getPlayer1().then((player1) => {
           this.state.wagerInstance.getPlayer2().then((player2) => {
-            // Update state with the result.
-            this.setState({ 
-              wagerState: wagerState.c[0],
-              wager: wager.s,
-              player1,
-              player2
+            this.state.wagerInstance.getWinner().then((winner) => {
+              // Update state with the result.
+              this.setState({ 
+                wagerState: wagerState.c[0],
+                wager: wager.s,
+                player1,
+                player2,
+                winner
+              });
             });
           });
         });
@@ -159,6 +161,7 @@ class Flipper extends Component {
     const player1El = <p key="player1"><span className="bold">Player 1:</span> {this.state.player1}</p>;
     const player2El = <p key="player2"><span className="bold">Player 2:</span> {this.state.player2}</p>;
     const wagerEl = <p key="wager"><span className="bold">Wager:</span> {this.state.wager} Ether</p>;
+    const winnerEl = <p key="winner"><span className="bold">Winner:</span> {this.state.winner === this.state.player1 ? 'Player 1' : 'Player 2'}!</p>;
     switch (this.state.wagerState) {
       case null:
       case 0: 
@@ -184,6 +187,9 @@ class Flipper extends Component {
         wageBtn = <WageBtn onClickAction={this.resolveBet} label="Flip the coin!" />;
         contractData.push(player1El, player2El, wagerEl);
         break;
+      case 3:
+        statusTxt = 'Wager won';
+        contractData.push(player1El, player2El, wagerEl, winnerEl);
       default:
         // No button
         break;
@@ -218,6 +224,10 @@ class Flipper extends Component {
               <tr>
                 <td>player2</td>
                 <td>{this.state.player2}</td>
+              </tr>
+              <tr>
+                <td>winner</td>
+                <td>{this.state.winner}</td>
               </tr>
             </tbody>
           </table>

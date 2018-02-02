@@ -17,8 +17,7 @@
 }
 */
 .welcome-card.mdl-card {
-	width: 90%;
-	margin: 5px auto;
+	width: 100%;
 }
 .welcome-card > .mdl-card__title {
 	position: relative;
@@ -53,12 +52,12 @@
 	font-size: 34px;
 }
 .coinflip-card > .contract-data {
-	height: 160px;
+	height: 200px;
 }
 .padded-table {
 	padding: 10px;
 }
-.padded-table table, .padded-table table thead, .padded-table table tbody, .padded-table table tr {
+.padded-table table {
 	display: block;
 	width: 100%;
 }

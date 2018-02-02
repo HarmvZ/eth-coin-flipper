@@ -110,26 +110,27 @@ class App extends Component {
         <div className="coinflip-layout-transparent mdl-layout mdl-js-layout">
           <main className="mdl-layout__content">
             <div className="page-content max-width-content">
-              <div className="mdl-card mdl-shadow--2dp welcome-card">
-                <div className="mdl-card__title  mdl-card--border">
-                  <h2 className="mdl-card__title-text">Ethereum Coinflipper</h2>
-                </div>
-                <div className="mdl-card__supporting-text mdl-card--border">
-                  <p>Flip a coin and win some ethereum from another player!</p>                 
-                </div>
-                <div className="mdl-card__supporting-text mdl-card--border how-it-works">
-                  <h3>How it works</h3>
-                  <p>Ethereum coin flipper is a decentralized app that enables 2 participants to perform a winner-takes-all pseudo-random coin flip. This is how it works:</p>
-                  <ol>
-                    <li>A new instance of a coin flip contract is created</li>
-                    <li>A participant (player 1) deposits a certain amount of ethereum to the contract</li>
-                    <li>A second participant (player 2) can then accept the terms of the contract by depositing the same amount of ethereum to the contract</li>
-                    <li>The virtual coin is flipped and the amount of ethereum in the smart contract is deposited to either player 1 or player 2 depending on the outcome.</li>
-                  </ol> 
-                  </div>
-              </div>
-              
               <div className="mdl-grid">
+                <div className="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+                  <div className="mdl-card mdl-shadow--2dp welcome-card">
+                    <div className="mdl-card__title  mdl-card--border">
+                      <h2 className="mdl-card__title-text">Ethereum Coinflipper</h2>
+                    </div>
+                    <div className="mdl-card__supporting-text mdl-card--border">
+                      <p>Flip a coin and win some ethereum from another player!</p>                 
+                    </div>
+                    <div className="mdl-card__supporting-text mdl-card--border how-it-works">
+                      <h3>How it works</h3>
+                      <p>Ethereum coin flipper is a decentralized app that enables 2 participants to perform a winner-takes-all pseudo-random coin flip. This is how it works:</p>
+                      <ol>
+                        <li>A new instance of a coin flip contract is created</li>
+                        <li>A participant (player 1) deposits a certain amount of ethereum to the contract</li>
+                        <li>A second participant (player 2) can then accept the terms of the contract by depositing the same amount of ethereum to the contract</li>
+                        <li>The virtual coin is flipped and the amount of ethereum in the smart contract is deposited to either player 1 or player 2 depending on the outcome.</li>
+                      </ol> 
+                      </div>
+                  </div>
+                </div>
                 {flippers}
               </div>
             </div>

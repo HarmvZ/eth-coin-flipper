@@ -7,6 +7,7 @@ contract Coinflip {
 	uint public wager;
 	address public player1;
 	address public player2;
+	address public winner;
 	uint public seedBlockNumber;
 
 	modifier onlyState(WagerState expectedState) {
@@ -33,6 +34,9 @@ contract Coinflip {
 	function getPlayer2() public view returns(address) {
 		return player2;
 	}
+	function getWinner() public view returns(address) {
+		return winner;
+	}
 
 
 	function makeWager() onlyState(WagerState.noWager) public payable returns (bool) {
@@ -57,8 +61,10 @@ contract Coinflip {
         uint256 coinFlip = uint256(uint256(blockValue) / factor);
         
         if(coinFlip == 0) {
+        	winner = player1;
             player1.transfer(this.balance);
         } else {
+        	winner = player2;
             player2.transfer(this.balance);
         }
         currentState = WagerState.wagerWon;
