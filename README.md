@@ -40,6 +40,7 @@ Currently I have no stable VM available to run this app on.
 * Streamline contract interaction by combining transactions: CoinflipCollection.addNew() + Coinflip.makeWager() and Coinflip.acceptWager() + Coinflip.resolveBet()
 * Add players
 * Improve randomness
+* Add minimum wager amount in contract
 ## Why?!
 I created this app to learn more about developing on the EVM.
 ## Credits
