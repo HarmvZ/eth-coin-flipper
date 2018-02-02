@@ -3,10 +3,10 @@ import CoinflipContract from '../build/contracts/Coinflip.json'
 import getWeb3 from './utils/getWeb3'
 import {BigNumber} from 'bignumber.js'
 
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
+// import './css/oswald.css'
+// import './css/open-sans.css'
+// import './css/pure-min.css'
+// import './App.css'
 
 
 class Flipper extends Component {
@@ -15,18 +15,20 @@ class Flipper extends Component {
 
     this.state = {
       wagerState: null,
-      wager: "1",
+      wager: "",
       player1: null,
       player2: null,
       wagerInstance: null,
       accounts: null,
-      web3: null
+      web3: null,
+      showDetails: false
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);    
     this.makeWager = this.makeWager.bind(this);    
     this.acceptWager = this.acceptWager.bind(this);    
     this.resolveBet = this.resolveBet.bind(this);    
+    this.toggleDetails = this.toggleDetails.bind(this);    
   }
 
   componentWillMount() {
@@ -105,7 +107,7 @@ class Flipper extends Component {
       this.state.wagerInstance.makeWager({
         from: this.state.accounts[0], 
         value: wager,
-        gas: 80000
+        gas: 150000
       }).then((result) => {
         if (result) {
           this.fetchContractVars();
@@ -122,7 +124,7 @@ class Flipper extends Component {
       this.state.wagerInstance.acceptWager({
         from: this.state.accounts[0], 
         value: wager,
-        gas: 80000
+        gas: 150000
       }).then((result) => {
         if (result) {
           this.fetchContractVars();
@@ -138,7 +140,7 @@ class Flipper extends Component {
       this.state.wagerInstance.resolveBet({
         from: this.state.accounts[0], 
         value: 0,
-        gas: 80000
+        gas: 150000
       }).then((result) => {
         if (result) {
           this.fetchContractVars();
@@ -149,84 +151,108 @@ class Flipper extends Component {
     }
   }
 
+  toggleDetails() {
+    this.setState(prevState => {
+      return {showDetails: !prevState.showDetails};
+    });
+  }  
+
   render() {
+    //Switch over wagerState and add relevant elements
     let statusTxt = 'Loading...';
     let wageBtn;
+    let contractData = [];
+    const player1El = <p key="player1"><span className="bold">Player 1:</span> {this.state.player1}</p>;
+    const player2El = <p key="player2"><span className="bold">Player 2:</span> {this.state.player2}</p>;
+    const wagerEl = <p key="wager"><span className="bold">Wager:</span> {this.state.wager} Ether</p>;
     switch (this.state.wagerState) {
       case null:
       case 0: 
         statusTxt = 'No wager';
-        wageBtn = (
-          <form className="pure-form pure-form-stacked">
+        wageBtn = (          
             <fieldset>
-              <label for="wager">Wager (Eth)</label>
-              <input id="wager" type="number" min="1" max="100" value={this.state.wager} onChange={this.handleInputChange} />
+              <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input className="mdl-textfield__input" type="number" pattern="[0-9]*(\.[0-9]+)?" id="wager" value={this.state.wager} onChange={this.handleInputChange} />
+                <label className="mdl-textfield__label" htmlFor="wager">Wager (Eth)</label>
+                <span className="mdl-textfield__error">Input is not a number!</span>
+              </div>              
               <WageBtn onClickAction={this.makeWager} label="Make wager!" />
             </fieldset>
-          </form>
         );
         break;
       case 1:
         statusTxt = 'Wager made';
         wageBtn = <WageBtn onClickAction={this.acceptWager} label="Accept Wager!" />;
+        contractData.push(player1El, wagerEl);
         break;
       case 2:
         statusTxt = 'Wager accepted';
-        wageBtn = <WageBtn onClickAction={this.resolveBet} label="Resolve Bet!" />;
+        wageBtn = <WageBtn onClickAction={this.resolveBet} label="Flip the coin!" />;
+        contractData.push(player1El, player2El, wagerEl);
+        break;
+      default:
+        // No button
         break;
     }
-    let addr1 = this.state.player1;
-    if (!this.state.player1 || this.state.player1 == "0x0000000000000000000000000000000000000000") {
-      addr1 = "None set";
-    }
-    let addr2 = this.state.player2;
-    if (!this.state.player2 || this.state.player2 == "0x0000000000000000000000000000000000000000") {
-      addr2 = "None set";
+    contractData.unshift(<p key="status"><span className="bold">Status:</span> {statusTxt}</p>);
+
+    // Toggle details
+    let detailBtnText = this.state.showDetails ? 'Hide details' : 'Show details...';
+    let details;
+    if (this.state.showDetails) {
+      details = (
+          <table className="mdl-data-table mdl-shadow--2dp">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>wagerState</td>
+                <td>{this.state.wagerState}</td>
+              </tr>
+              <tr>
+                <td>wager</td>
+                <td>{this.state.wager}</td>
+              </tr>
+              <tr>
+                <td>player1</td>
+                <td>{this.state.player1}</td>
+              </tr>
+              <tr>
+                <td>player2</td>
+                <td>{this.state.player2}</td>
+              </tr>
+            </tbody>
+          </table>
+      );
     }
 
     return (
-          <div className="pure-g coinflipper">
-            <div className="pure-u-1-1">
-              <h2>Coinflipper instance</h2>
-              <p className="subtitle">Address: {this.props.address}</p>
-              <p><span className="bold">Status:</span> {statusTxt}</p>
-              <p><span className="bold">Player 1:</span> {addr1}</p>
-              <p><span className="bold">Player 2:</span> {addr2}</p>
-              <p><span className="bold">Wager:</span> {this.state.wager} Ether</p>
-              <div className="smalltext">
-                <h3>Contract state variables</h3>
-                <table className="pure-table">
-                  <thead>
-                    <tr>
-                      <th>Variable</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>wagerState</td>
-                      <td>{this.state.wagerState}</td>
-                    </tr>
-                    <tr>
-                      <td>wager</td>
-                      <td>{this.state.wager}</td>
-                    </tr>
-                    <tr>
-                      <td>player1</td>
-                      <td>{this.state.player1}</td>
-                    </tr>
-                    <tr>
-                      <td>player2</td>
-                      <td>{this.state.player2}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-                  {wageBtn}
-
-            </div>
+      <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+        <div className="mdl-card mdl-shadow--2dp coinflip-card">
+          <div className="mdl-card__title">
+            <p className="mdl-card__title-text label">Coinflip contract</p>
+            <h2 className="mdl-card__title-text subtitle">{this.props.address}</h2>
           </div>
+          <div className="mdl-card__supporting-text contract-data">
+            {contractData}
+          </div>
+          <div className="mdl-card__actions mdl-card--border">
+            <form action="#" className="coinflip-form">              
+              {wageBtn}
+              <fieldset>
+                <button type="button" onClick={this.toggleDetails} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{detailBtnText}</button>
+              </fieldset>
+            </form>
+          </div>
+          <div className="padded-table">
+            {details}
+          </div>            
+        </div>
+      </div>
     );
   }
 }
@@ -240,7 +266,23 @@ class WageBtn extends Component {
 
   render() {
     return (
-        <button className="pure-button pure-button-primary" onClick={this.props.onClickAction}>{this.props.label}</button>
+        <button type="button" className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={this.props.onClickAction}>{this.props.label}</button>
     );
   }
 }
+/*
+          <div className="pure-g coinflipper">
+            <div className="pure-u-1-1">
+              <h2>Coinflip contract</h2>
+              <p className="subtitle">Address: {this.props.address}</p>
+              {contractData}
+              <form className="pure-form pure-form-stacked">              
+                {wageBtn}
+                <fieldset>
+                  <button type="button" onClick={this.toggleDetails}>{detailBtnText}</button>
+                </fieldset>
+              </form>
+              {details}
+            </div>
+          </div>
+          */

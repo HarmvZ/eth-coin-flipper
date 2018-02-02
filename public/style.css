@@ -1,0 +1,75 @@
+.bold {
+	font-weight: bold;
+}
+.max-width-content {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+/*
+.coinflip-layout-transparent {
+	background: url('assets/img/coins4.jpeg') center / cover;
+}
+.coinflip-layout-transparent .mdl-layout__header,
+.coinflip-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. *
+  color: white;
+}
+*/
+.welcome-card.mdl-card {
+	width: 90%;
+	margin: 20px auto;
+	text-align: center;
+}
+.welcome-card > .mdl-card__title {
+	position: relative;
+	color: #fff;
+	height: 280px;
+	/*background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;*/
+  	background: url('assets/img/user-profile-bg.jpg') center / cover;
+}
+.coinflip-card.mdl-card {
+  	width: 100%;
+}
+.coinflip-card > .mdl-card__title {
+	background: url('assets/img/download.png') center / cover;
+	color: #fff;
+	display: block;
+	text-align: center;
+	height: 180px;
+	padding-top: 50px;
+}
+.coinflip-card > .mdl-card__title > .mdl-card__title-text.label {
+	color: #444;
+    font-weight: bold;
+    font-size: 18px;
+    font-variant-caps: all-small-caps;
+}
+.coinflip-card > .mdl-card__title > .mdl-card__title-text.subtitle {
+    font-weight: bold;
+	word-break: break-all;
+	font-size: 36px;
+}
+.coinflip-card > .contract-data {
+	height: 160px;
+}
+.padded-table {
+	padding: 10px;
+}
+.padded-table table, .padded-table table thead, .padded-table table tbody, .padded-table table tr {
+	display: block;
+	width: 100%;
+}
+.add-contract {
+	position: fixed;
+	float: left;
+	bottom: 10px;
+	right: 30px;
+	z-index: 1000;
+}
+.coinflip-form {
+	text-align: center;
+}
+.coinflip-form button {
+	margin-top: 15px;
+}

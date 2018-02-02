@@ -4,10 +4,10 @@ import CoinflipCollectionContract from '../build/contracts/CoinflipCollection.js
 import CoinflipContract from '../build/contracts/Coinflip.json'
 import Flipper from './Flipper'
 
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
+// import './css/oswald.css'
+// import './css/open-sans.css'
+// import './css/pure-min.css'
+// import './App.css'
 
 class App extends Component {
   constructor(props) {
@@ -108,17 +108,48 @@ class App extends Component {
 
     return (
       <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">EthCoinFlipper</a>
-        </nav>
-
-        <main className="container">
-          <h1>Ethereum Coinflipper</h1>
-          <button className="pure-button pure-button-primary" onClick={this.addCoinflip}>Add new instance</button>
-          <div className="pure-g">
-            {flippers}
+        <div className="coinflip-layout-transparent mdl-layout mdl-js-layout  mdl-layout--fixed-header">
+          <header className="mdl-layout__header">
+            <div className="mdl-layout__header-row">
+              <span className="mdl-layout-title">Coin flip smart contracts</span>
+              <div className="mdl-layout-spacer"></div>
+              <nav className="mdl-navigation mdl-layout--large-screen-only">
+                <a className="mdl-navigation__link" href="">Link</a>
+                <a className="mdl-navigation__link" href="">Link</a>
+                <a className="mdl-navigation__link" href="">Link</a>
+                <a className="mdl-navigation__link" href="">Link</a>
+              </nav>
+            </div>
+          </header>
+          <div className="mdl-layout__drawer">
+            <span className="mdl-layout-title">Coin flip smart contracts</span>
+            <nav className="mdl-navigation">
+              <a className="mdl-navigation__link" href="">Link</a>
+              <a className="mdl-navigation__link" href="">Link</a>
+              <a className="mdl-navigation__link" href="">Link</a>
+              <a className="mdl-navigation__link" href="">Link</a>
+            </nav>
           </div>
-        </main>
+          <main className="mdl-layout__content">
+            <div className="page-content max-width-content">
+              <div className="mdl-card mdl-shadow--2dp welcome-card">
+                <div className="mdl-card__title  mdl-card--border">
+                  <h2 className="mdl-card__title-text">Ethereum Coinflipper</h2>
+                </div>
+                <div className="mdl-card__supporting-text">
+                  <p>Flip a coin and win some ethereum from another player!</p>
+                </div>     
+              </div>
+              
+              <div className="mdl-grid">
+                {flippers}
+              </div>
+            </div>
+            <button className="add-contract mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onClick={this.addCoinflip}>
+              <i className="material-icons">add</i>
+            </button> 
+          </main>
+        </div> 
       </div>
     );
   }
