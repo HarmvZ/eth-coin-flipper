@@ -108,28 +108,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="coinflip-layout-transparent mdl-layout mdl-js-layout  mdl-layout--fixed-header">
-          <header className="mdl-layout__header">
-            <div className="mdl-layout__header-row">
-              <span className="mdl-layout-title">Coin flip smart contracts</span>
-              <div className="mdl-layout-spacer"></div>
-              <nav className="mdl-navigation mdl-layout--large-screen-only">
-                <a className="mdl-navigation__link" href="">Link</a>
-                <a className="mdl-navigation__link" href="">Link</a>
-                <a className="mdl-navigation__link" href="">Link</a>
-                <a className="mdl-navigation__link" href="">Link</a>
-              </nav>
-            </div>
-          </header>
-          <div className="mdl-layout__drawer">
-            <span className="mdl-layout-title">Coin flip smart contracts</span>
-            <nav className="mdl-navigation">
-              <a className="mdl-navigation__link" href="">Link</a>
-              <a className="mdl-navigation__link" href="">Link</a>
-              <a className="mdl-navigation__link" href="">Link</a>
-              <a className="mdl-navigation__link" href="">Link</a>
-            </nav>
-          </div>
+        <div className="coinflip-layout-transparent mdl-layout mdl-js-layout">
           <main className="mdl-layout__content">
             <div className="page-content max-width-content">
               <div className="mdl-card mdl-shadow--2dp welcome-card">
