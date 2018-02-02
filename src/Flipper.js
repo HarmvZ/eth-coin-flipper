@@ -3,12 +3,6 @@ import CoinflipContract from '../build/contracts/Coinflip.json'
 import getWeb3 from './utils/getWeb3'
 import {BigNumber} from 'bignumber.js'
 
-// import './css/oswald.css'
-// import './css/open-sans.css'
-// import './css/pure-min.css'
-// import './App.css'
-
-
 class Flipper extends Component {
   constructor(props) {
     super(props)
@@ -270,19 +264,3 @@ class WageBtn extends Component {
     );
   }
 }
-/*
-          <div className="pure-g coinflipper">
-            <div className="pure-u-1-1">
-              <h2>Coinflip contract</h2>
-              <p className="subtitle">Address: {this.props.address}</p>
-              {contractData}
-              <form className="pure-form pure-form-stacked">              
-                {wageBtn}
-                <fieldset>
-                  <button type="button" onClick={this.toggleDetails}>{detailBtnText}</button>
-                </fieldset>
-              </form>
-              {details}
-            </div>
-          </div>
-          */

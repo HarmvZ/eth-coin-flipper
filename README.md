@@ -34,6 +34,6 @@ $ npm run start
 ```
 7. Now you can use your browser and MetaMask to start flipping coins on http://localhost:3000
 ## Demo
-todo
+TODO
 ## Donate
-yes please
+Yes, please!
