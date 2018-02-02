@@ -88,7 +88,7 @@ class Flipper extends Component {
               // Update state with the result.
               this.setState({ 
                 wagerState: wagerState.c[0],
-                wager: wager.s,
+                wager: wager.c[0] == '0' ? '' : wager.c[0]/10000, // divided by 10.000 for correct value... WHY??
                 player1,
                 player2,
                 winner
@@ -109,7 +109,7 @@ class Flipper extends Component {
   }
 
   eth2Wei(value) {
-    let wei = this.state.web3.toWei(parseInt(value), 'ether');
+    let wei = this.state.web3.toWei(parseFloat(value), 'ether');
     return wei;
   }
 

@@ -63,7 +63,7 @@ class App extends Component {
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      coinflipCollection.deployed().then((instance) => {
+      coinflipCollection.at('0xe84bf6DB0b2a52E55325B1fFd341D18D17446717').then((instance) => {
         collectionInstance = instance;
         this.setState({
           collectionInstance,
