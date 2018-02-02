@@ -28,6 +28,9 @@
 	/*background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;*/
   	background: url('assets/img/user-profile-bg.jpg') center / cover;
 }
+.welcome-card .mdl-card__supporting-text.how-it-works ol, .welcome-card .mdl-card__supporting-text.how-it-works p {
+	text-align: left;
+}
 .coinflip-card.mdl-card {
   	width: 100%;
 }
@@ -40,7 +43,7 @@
 	padding-top: 50px;
 }
 .coinflip-card > .mdl-card__title > .mdl-card__title-text.label {
-	color: #444;
+	color: #ccc;
     font-weight: bold;
     font-size: 18px;
     font-variant-caps: all-small-caps;
@@ -48,7 +51,7 @@
 .coinflip-card > .mdl-card__title > .mdl-card__title-text.subtitle {
     font-weight: bold;
 	word-break: break-all;
-	font-size: 36px;
+	font-size: 34px;
 }
 .coinflip-card > .contract-data {
 	height: 160px;
