@@ -41,7 +41,7 @@ $ npm run start
 * Streamline contract interaction by combining transactions: CoinflipCollection.addNew() + Coinflip.makeWager() and Coinflip.acceptWager() + Coinflip.resolveBet()
 * Add players
 * Improve randomness
-* Add minimum wager amount in contract
+* Add minimum wager amount
 ## Why?!
 I created this app to learn more about developing on the Ethereum VM.
 ## Credits
