@@ -47,6 +47,3 @@ I created this app to learn more about developing on the Ethereum VM.
 ## Credits
 This project is created with the [official Truffle React box](http://truffleframework.com/boxes/react). 
 The coin flip smart contract is based on [this example](https://gist.github.com/AlwaysBCoding/fa141a313f404b585016ff2a1e62adaf) by Decipher Media.
-## Donate
-BTC 16eBpKYVTHyg1XdVJ1gNGGK3wrpcGWSGne
-ETH 0xfAA23b0173eD6A34aa4B880fA3aC8dAE71fdE6F9
